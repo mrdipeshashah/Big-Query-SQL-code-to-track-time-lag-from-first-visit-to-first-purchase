@@ -6,7 +6,7 @@ user_pseudo_id,
 traffic_source.name as first_visit_campaign,
 traffic_source.medium as first_visit_medium,
 traffic_source.source as first_visit_source
-from `mrdipeshashah.analytics_343520795.events_*`
+from `enter.tablename_123456.events_*`
 where event_name ='first_visit'
 ),
 purchase as (
