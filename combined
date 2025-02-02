@@ -1,0 +1,18 @@
+SELECT
+    TIMESTAMP_MICROS(event_timestamp) as event_timestamp,
+    user_pseudo_id,
+    event_name,
+    lower((select value.string_value from unnest(event_params) where key = 'source')) as all_event_source,
+    lower((select value.string_value from unnest(event_params) where key = 'medium')) as all_event_medium,
+    lower((select value.string_value from unnest(event_params) where key = 'campaign')) as all_event_campaign,
+    traffic_source.source as first_user_source,
+    traffic_source.medium as first_user_medium,
+    traffic_source.name as first_user_campaign,
+    collected_traffic_source.manual_source as first_event_source,
+    collected_traffic_source.manual_medium as first_event_medium,
+    collected_traffic_source.manual_campaign_name as first_event_campaign,
+    session_traffic_source_last_click.manual_campaign.source as first_session_source,
+    session_traffic_source_last_click.manual_campaign.medium as first_session_medium,
+    session_traffic_source_last_click.manual_campaign.campaign_name as first_session_campaign,
+from `enter.tablename_123456.events_*`
+GROUP BY ALL
